@@ -1,0 +1,53 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) {
+ *         val = x;
+ *         next = null;
+ *     }
+ * }
+ */
+public class Solution {
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        
+        if(head==null || head.next==null){
+            return null;
+        }
+         
+         ListNode f=head;  
+         ListNode s=head;
+         /**
+         当我们需要卡一个长度的时候（最后一个往前数10个，从头往后数3个），我们可以用两个指针
+         第一个先走10步，走完之后，第一个和第二个指针同时再一起走，这样就能保证第一个和第二个之前的距离是10，
+         以此类推，可以保证n个数值之间都是相差x，或者相差一个等比或者等差数
+         */
+         
+         for(int i = 0; i<n;i++){
+             f=f.next;
+         }
+         /**
+         就这道题而言，我们需要检查，要删除的数字是否是第一个，比如给的链change为5，但是要删除倒数第5个数字，也就是第一个。
+         这时第一个指针已经走到最后一个node的next（因为是从0开始计数，f=f.next,所以f第n个的next），这时第一个指针是null,
+         要删除的刚好是第二个指针的位置（也就是head），这时只要把头往后推一个，返回头就可以
+         
+         */
+         if(f==null){
+             head=head.next;
+             return head;
+         }
+         
+         while(f.next!=null){
+             f=f.next;
+             s=s.next;
+         }
+         
+         s.next=s.next.next;
+         
+         return head;
+
+    }
+}
+Status API Training Shop Blog About
+© 2015 GitHub, Inc. Terms Privacy Security Contac
