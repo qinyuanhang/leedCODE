@@ -1,0 +1,55 @@
+/**
+Given two sorted integer arrays A and B, merge B into A as one sorted array.
+就是一个merge sorting 没什么好说的
+*/
+
+
+public class Solution {
+    public void merge(int A[], int m, int B[], int n) {
+        int head1=0, head2=0,head3=0;
+        int [] merge;
+        merge= new int [n+m];
+        
+        if(m==0){
+            for(int head=0;head<n;head++){
+                A[head]=B[head];
+        }
+        
+                   
+            return;
+        }else if(n==0){
+            return;
+        }
+        
+        while(head1<m && head2<n){
+            if(A[head1]<B[head2]){
+                merge[head3]=A[head1];
+                head1++;
+            }else{
+                merge[head3]=B[head2];
+                head2++;
+            }
+            head3++;
+        }
+        
+        if(head1==m && head2!=n){
+            while(head2<n){
+                merge[head3]=B[head2];
+                head2++;
+                head3++;
+            }
+        }else if(head1!=m && head2==n){
+            while(head1<m){
+                merge[head3]=A[head1];
+                head1++;
+                head3++;
+            }
+        }
+        
+        for(int head=0;head<m+n;head++){
+            A[head]=merge[head];
+        }
+        
+        
+    }
+}
