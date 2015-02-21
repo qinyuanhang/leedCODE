@@ -1,0 +1,56 @@
+/**
+Given a sorted linked list, delete all duplicates such that each element appear only once.
+
+For example,
+Given 1->1->2, return 1->2.
+Given 1->1->2->3->3, return 1->2->3.
+*/
+
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) {
+ *         val = x;
+ *         next = null;
+ *     }
+ * }
+ */
+ 
+ 
+ 
+ /**
+ 又是一个双指针问题，不同的是，这次换的是指针（next）而不是直接换内容，所以后面的那个直接把不同的前面的那个变成自己的next
+ 就可以，链接完之后要记得把后面那个提到和前面这个指针相同位置，在开始循环，因为这个是指针，不是数组。
+ */
+public class Solution {
+    public ListNode deleteDuplicates(ListNode head) {
+        
+        ListNode f = head;
+        ListNode s = head;
+    
+        if(head==null || head.next==null){
+            return head;
+        }
+        while(f!=null){
+            if(f.val==s.val){
+               f=f.next;
+            }else{
+                s.next=f;
+                s=f;
+                f=f.next;
+            }
+        }
+        /**
+        记得这里，当循环跳出时，说明这是快的指针已经指向null，在这期间没有发现和慢指针不同的node，说明慢的指针的下一个也是NULL
+        直接赋值就好
+        */
+        s.next=null;
+       /**
+       因为我们改的是慢指针的下一个，所以head不变
+       */
+        return head;
+    }
+}
