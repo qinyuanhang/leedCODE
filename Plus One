@@ -1,0 +1,64 @@
+/**
+Given a non-negative number represented as an array of digits, plus one to the number.
+
+The digits are stored such that the most significant digit is at the head of the list.*/
+/**
+我的思路是用一个堆，将这个数组从最后一位往里push，第一个的时候加1，判断，要是加1之后等于10的话，push 0，再在下一次push的时候
+加 1，要是等于10 就push 0 再在下一个数字加1 以此类推，直到不等于10，就直接往里push。
+push完了之后再pop出来放回数组里
+*/
+
+public class Solution {
+    public int[] plusOne(int[] digits) {
+        
+        if(digits.length==0){
+            return digits;
+        }
+        
+        int lastpos=digits.length-1,length=0;
+        
+        Stack <Integer> stack = new Stack <Integer> ();
+        
+        while(lastpos>=0 && digits[lastpos]+1 == 10){
+            //这里要加条件lastpos>=0，因为要是不加的话，再一次循环过来lastpos就变成-1，这时候就会有错误
+            stack.push(0);
+            length++;
+            lastpos--;
+        }
+        /**
+        当999这样的数组，push三个0进入堆中之后，这时数组的指针已经指到-1这个位置，之后就在顶端push 1就可以。
+        */
+        if(lastpos<0){
+            stack.push(1);
+            length++;
+        }else{
+        /**
+        当最后一个加1之后不等于10时，直接push就可以
+        */
+            stack.push(digits[lastpos]+1);
+            length++;
+            lastpos--;
+            while(lastpos>=0){
+                stack.push(digits[lastpos]);
+                length++;
+                lastpos--;
+           }
+            
+        }
+        
+        /**
+        再把堆中的数字一一倒出来放到新的数组里，
+        为什么要用新的数组呢？因为999加1之后会变成1000，数组的长度会变，而原来的数组的长度是不能变的。所以只能
+        创建新的数组，长度是堆得高度
+        */
+        int [] digits2;
+        digits2=new int[length];
+        int i=0;
+       while(!stack.isEmpty()){
+            digits2[i]=stack.pop();
+            i++;
+        }
+        return digits2;
+
+    }
+}
