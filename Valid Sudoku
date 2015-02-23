@@ -1,0 +1,56 @@
+//determine if a Sudoku is valid, according to: Sudoku Puzzles - The Rules.
+//The Sudoku board could be partially filled, where empty cells are filled with the character '.'.
+就是检查一个数独的题目是否符合条件，（横竖小方块）
+
+
+
+/**
+这个是最啰嗦的解法，很多层嵌套循环。但是，，，，，反正能做出来
+*/
+
+
+public class Solution {
+    public boolean isValidSudoku(char[][] board) {
+        
+        //check each line and colume if its valid
+        for(int i =0;i<9;i++){
+            for(int j =0;j<9;j++){
+                if(board[i][j]!='.'){
+                    for(int k =0; k<9; k++){
+                        if(board[i][j]==board[i][k] && k!=j){
+                            return false;
+                        }else if(board[i][j]==board[k][j] && k!=i){
+                            return false;
+                        }
+                    }
+                }
+          //check  if its valid within little square    
+          //提取每个小方块的起一个数字（0，0），（0，3），（0，6），（3，0），（3，3），（3，6），（6，0），（6，3），（6，6）
+          for(int k=0;k<=6;k=k+3){
+              for(int t=0;t<=6;t=t+3){
+                /**
+                小方块里面的两次循环，每个数字检查一遍*/
+                for(int k1=k;k1<k+3;k1++){
+                    for(int t1=t;t1<t+3;t1++){
+                       
+                      if(board[k1][t1]!='.'){
+                          
+                          for(int k2=k;k2<k+3;k2++){
+                            for(int t2=t;t2<t+3;t2++){
+                            
+                                if(board[k1][t1]==board[k2][t2] && k1!=k2 && t1!=t2){
+                                    return false;
+                                }
+                            }
+                          }
+                      }
+                    }
+                }                  
+              }
+          }
+         ///////////////////////////// 
+            } 
+        }     
+   return true;     
+    }
+}
