@@ -1,0 +1,29 @@
+/**
+用两次循环他会超时的，，，，恶心
+现在用的是hashmap来实现O（1）的寻找时间，
+key是他的数值，val是他的位置
+*/
+
+public class Solution {
+    public int[] twoSum(int[] numbers, int target) {
+     
+        HashMap<Integer,Integer> hash = new HashMap<Integer,Integer>();
+        int [] index= new int [2];
+        
+        for(int i = 0; i< numbers.length;i++){
+            if(hash.containsKey(target-numbers[i])){
+                index[0]=hash.get(target-numbers[i])+1;
+                index[1]=i+1;
+                break;
+                
+            }else{
+                hash.put(numbers[i],i);
+            }
+            
+            
+            
+        }
+        return index;
+    
+    }
+}
