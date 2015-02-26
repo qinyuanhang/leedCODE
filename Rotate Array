@@ -1,0 +1,27 @@
+/**
+Rotate an array of n elements to the right by k steps.
+
+For example, with n = 7 and k = 3, the array [1,2,3,4,5,6,7] is rotated to [5,6,7,1,2,3,4].
+
+Note:
+Try to come up as many solutions as you can, there are at least 3 different ways to solve this problem.
+
+*/
+
+/**
+这个没什么好说的，就是这个计算位置的时候要注意是取模不是取余，
+还有就是 如果 用 int copy [] = nums;这个语法看似有了两个数组，其实只有一个，这叫浅表复制，也就是说nums变了，copy也会变
+，要深度复制的话要用int copy [] = nums.clone(); 或者Syatem.arrayCopy;
+
+*/
+
+public class Solution {
+    public void rotate(int[] nums, int k) {
+        
+        int [] copy=nums.clone();
+        
+        for(int i = 0; i<nums.length;i++){
+            nums[(i + k)%nums.length]=copy[i];
+        }
+    }
+}
