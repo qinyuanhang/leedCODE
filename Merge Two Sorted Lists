@@ -1,0 +1,52 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) {
+ *         val = x;
+ *         next = null;
+ *     }
+ * }
+ */
+ 
+ /**
+ 总体思路就是新建两个node，一个是新的head，另一个保存这个head的位置，
+ 然后比较l1，和l2两个点，谁小就把谁连到head的next，然后head=head.next，再把小的这个跳到下一个，l2=l2.next，一个一个
+ 往后推。 
+ 
+ 
+ 浪费空间！！！
+ */
+public class Solution {
+     public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+         
+        if(l1==null && l2!=null){return l2;}
+        if(l2==null && l1!=null){return l1;}
+        if(l1==null && l2==null)return l1;
+        
+         ListNode head = new ListNode(0);
+         ListNode res =  head;
+         
+         while(l1!=null && l2!=null){
+             if(l1.val>l2.val){
+                 head.next=l2;
+                 l2=l2.next;
+                
+             }else{
+                 head.next=l1;
+                 l1=l1.next;
+                
+             }
+             head=head.next;
+         }
+
+            if(l1==null && l2!=null){
+                head.next=l2;
+            }else if(l1!=null && l2==null){
+                head.next=l1;
+            }
+            
+       return res.next; //这个链表的开始是保存的头的下一个，
+     }
+ }
