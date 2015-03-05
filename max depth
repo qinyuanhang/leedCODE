@@ -1,0 +1,20 @@
+/**
+ * Definition for binary tree
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+ 
+ 不知道怎么总结，就是递归。。。多练几次
+public class Solution {
+    public int maxDepth(TreeNode root) {
+        if(root==null) return 0;
+        
+        if(root.left!=null || root.right!=null) return Math.max(1+maxDepth(root.left),1+maxDepth(root.right));
+       
+        return 1;
+    }
+}
