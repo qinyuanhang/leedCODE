@@ -1,0 +1,35 @@
+/**
+ * Definition for binary tree
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+ 
+ /**
+ 这道题要进场拿出来写一写
+ */
+public class Solution {
+    public boolean isBalanced(TreeNode root) {
+     if(root==null) return true;
+        return getDepth(root)==-1?false:true;
+    }
+    这个函数要返回的时int而不是boolean， 因为还要用这个函数来计算depth，所以不能返回boolean。
+    
+    public int getDepth(TreeNode root){
+        if (root==null) return 1;
+        
+        int left = getDepth(root.left);
+        int right =getDepth(root.right);
+        
+        if(left==-1 || right ==-1 || Math.abs(left-right)>1 ){//左子树或右子树或当前树不是balance tree都会返回-1
+            return -1;
+        }
+        
+        return Math.max(left,right)+1;//这里是计算depth的关键，也是为什么这个函数是返回int的关键
+    }
+    
+    
+}
