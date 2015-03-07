@@ -4,7 +4,7 @@ Given an array of integers, every element appears twice except for one. Find tha
 
 Note:
 Your algorithm should have a linear runtime complexity. Could you implement it without using extra memory?
-*/he
+*/
 
 需要二进制的知识，xor运算^， 可以从一系列数字中找出单独的那个，
 2 2 3 3 4 4 8 8 5 5  令X=0， 让x依次和里面所有数字取XOR， 最后一定是0
