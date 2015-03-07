@@ -26,3 +26,37 @@ public class Solution {
         
     }
 }
+//////////////////////另一种算法/////////////////////
+public class Solution {
+    public int singleNumber(int[] A) {
+        if(A.length == 0) return 0;
+        if(A.length == 1) return A[0];
+        
+        Arrays.sort(A); 可以用这个方法先排序。记得是Arrays。。有个s
+        
+        int flag=0;
+
+有几种情况要考虑
+
+1，2，2 先是flag=0， 第一次就比较，不同，flag=0， 就是他了
+
+2，2，3第一次比较，相同，flag++变成1，第二次比较，不同，flag不是0，flag--，但是循环不下去了，所以返回最后一个
+
+2，2，3，4，4第一次比较，相同，flag++变1，第二次比较，不同，flag不是0，flag--，第三次比较，还是不同，flag==0，就是他了
+        
+        for(int i =0;i<A.length-1; i++){
+            if(A[i]==A[i+1]){
+                flag++;
+            }else{
+                if(flag==0) return A[i];
+                
+                flag--;
+            }
+        }
+      
+        return A[A.length-1];
+    }
+}
+
+
+
