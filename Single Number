@@ -1,0 +1,28 @@
+
+/**
+Given an array of integers, every element appears twice except for one. Find that single one.
+
+Note:
+Your algorithm should have a linear runtime complexity. Could you implement it without using extra memory?
+*/he
+
+需要二进制的知识，xor运算^， 可以从一系列数字中找出单独的那个，
+2 2 3 3 4 4 8 8 5 5  令X=0， 让x依次和里面所有数字取XOR， 最后一定是0
+
+2 2 3 3 4 4 8 （少了一个8）5 5   让X依次河里面所有的数字取XOR， 最后一定是那个单一的数字
+
+很神奇，我也想不通，记下来就好啦
+
+public class Solution {
+    public int singleNumber(int[] A) {
+        
+       int x=0;
+ 
+        for(int a: A){
+            x = x ^ a;
+        }
+ 
+        return x;
+        
+    }
+}
