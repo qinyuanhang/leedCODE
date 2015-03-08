@@ -1,0 +1,46 @@
+
+Given a list of non negative integers, arrange them such that they form the largest number.
+
+For example, given [3, 30, 34, 5, 9], the largest formed number is 9534330.
+
+Note: The result may be very large, so you need to return a string instead of an integer.
+
+Credits:
+Special thanks to @ts for adding this problem and creating all test cases.
+
+
+注意要，不是要把每个数字拆开成一个一个，而是保持数字的完整，
+诀窍是，s1+s2 和 s2+s1 比大小，再考虑是否要换s1和s2的位置，
+考虑【0，0】这种情况
+有溢出的情况，所以要用Long
+
+public class Solution {
+    public String largestNumber(int[] num) {
+        String res="";
+        for(int i = 0 ; i<num.length ; i++){
+            for(int j = i; j<num.length ; j++){
+                if(!comp(num[i],num[j])){
+                    int temp=num[j];
+                    num[j]=num[i];
+                    num[i]=temp;
+                }
+            }
+        }
+        if(num[0]==0){ return "0";}
+        
+        for(int n=0; n<num.length;n++){
+            res=res+num[n];
+        }
+        return res;
+    }
+  
+  
+    
+    public boolean comp(int a,int b){
+        long ab=Long.parseLong(String.valueOf(a)+String.valueOf(b));
+        long ba=Long.parseLong(String.valueOf(b)+String.valueOf(a));
+        if(ab>ba) return true;
+        return false;
+    }
+    
+}
