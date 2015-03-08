@@ -1,0 +1,63 @@
+
+/**
+ZigZag Conversion Total Accepted: 30373 Total Submissions: 135494 My Submissions Question Solution 
+The string "PAYPALISHIRING" is written in a zigzag pattern on a given number of rows like this: (you may want to display this pattern in a fixed font for better legibility)
+
+P   A   H   N
+A P L S I I G
+Y   I   R
+And then read line by line: "PAHNAPLSIIGYIR"
+Write the code that will take a string and make this conversion given a number of rows:
+
+string convert(string text, int nRows);
+convert("PAYPALISHIRING", 3) should return "PAHNAPLSIIGYIR".
+*/
+
+都说很无聊的题，但是可以学到很多技巧：
+
+1：反弹数列： 01234（-3）（-2）（-1）01234。。。。
+这样只要一直加上去，到达4的时候，下一个数字变成-4+1（变符号加1）就可以，这样做减少变换条件（一直加1就可以），
+2：字符串数组需要初始化，要不然null一直存在
+
+
+
+
+
+
+public class Solution {
+    public String convert(String s, int nRows) {
+        
+        if(s.length()<=1 || nRows==1) return s;
+       
+        
+        String [] st=new String [nRows];
+        
+        //需要nRow个字符串的数组，记录每一个row的字符，最后把他们从头拼接就可以啦
+        
+       for(int p=0;p<st.length;p++){
+        	st[p]="";
+        }
+        
+        int row=0;
+        
+        for(int i = 0 ; i < s.length(); i++){
+            int temp=Math.abs(row);
+            if(row==nRows-1){
+                st[temp]=st[temp]+s.charAt(i);
+                row=0-row+1;
+            }else{
+                st[temp]=st[temp]+s.charAt(i);
+                row++;
+            }
+        }
+            
+         String res="";
+         
+         for(String t : st){
+             res=res+t;
+         }
+         
+            
+        return res;
+    }
+}
