@@ -1,0 +1,35 @@
+Valid Parentheses Total Accepted: 41274 Total Submissions: 154900 My Submissions Question Solution 
+Given a string containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
+
+The brackets must close in the correct order, "()" and "()[]{}" are all valid but "(]" and "([)]" are not.
+
+要 用stack，，左边的进站，碰到右边就看：
+                                      1：stack要是空的话，没有东西匹配，返回错
+                                      2：pop出第一个和当前的，要是匹配就下一个，
+                                      3：最后一定是要保证stack是空的，要是不是空的那就是错的
+
+
+public class Solution {
+    public boolean isValid(String s) {
+        if(s.length()==0) return true;
+        if(s.length()%2!=0) return false;
+        
+        Stack<Character> stack = new Stack<Character>();
+        
+        int n = 0 ;
+       
+        while(n<s.length()){
+            char k = s.charAt(n);
+            
+           if(k=='(' || k== '[' || k=='{'){
+               stack.push(k);
+           }else{
+             
+               if(stack.isEmpty() || k-stack.pop()>3) return false;
+               
+           }
+           n++;
+        }
+        return stack.isEmpty();
+    }
+}
