@@ -1,0 +1,30 @@
+这道题目相对比较容易，也不牵扯什么算法。只需要扫描字符串，计数，输出，即可。
+比如我们再扫描1211的时候，看1后面是2，则1的count = 1，则将count + 1写入字符串中，2也一样，2后面的1,
+1后面还是1，则count++，第二个1后面没有了，则将count+1写入字符串，输入完毕。
+因此打印的就是11+12+21即111221。
+
+
+
+public class Solution {
+    public String countAndSay(int n) {
+       if (n <= 0) {  
+    return null;  
+}  
+String s = "1";  
+int num = 1;  
+for (int j = 0; j < n - 1; j++) {  
+    StringBuilder sb = new StringBuilder();  
+    for (int i = 0; i < s.length(); i++) {  
+        if (i < s.length() - 1 && s.charAt(i) == s.charAt(i + 1)) {这里是当前和下一个相同才加1，  
+            num++;  
+        } else {  
+            sb.append(num + "" + s.charAt(i));  
+            num = 1;  这里记得变回1
+        }  
+    }  
+    s = sb.toString();  
+}  
+return s;  
+        
+    }
+}
