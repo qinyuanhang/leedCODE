@@ -1,0 +1,32 @@
+Given a m x n grid filled with non-negative numbers, find a path from top left to bottom right which minimizes the sum of all numbers along its path.
+
+Note: You can only move either down or right at any point in time.
+
+就是动态规划的一道题，当前位置的值由上面的或者左边的值较小的一个决定，注意的是，上面的左边的所有值都累积加好
+因为没有上面或者左边的值的话，没有办法选出走第一步时所需要的值，这个算法是把每一个到当前位置的最小值算出来，
+给出最后一个位置的值
+
+public class Solution {
+    public int minPathSum(int[][] grid) {
+        
+        int res[][] = new int [grid.length][grid[0].length];
+        
+        res[0][0] = grid[0][0];
+        
+        for(int i = 1; i < grid.length; i++){
+            res[i][0] = grid[i][0] + res[i - 1][0];
+        }
+        
+         for(int j = 1; j < grid[0].length; j++){
+            res[0][j] = grid[0][j] + res[0][j - 1];
+        }
+        
+        
+        for(int p = 1; p < grid.length; p++){
+            for(int q = 1; q < grid[0].length; q++){
+                res[p][q] = grid[p][q] + Math.min(res[p - 1][q],res[p][q - 1]);
+            }
+        }
+        return res[grid.length-1][grid[0].length-1];
+    }
+}
