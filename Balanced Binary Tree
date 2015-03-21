@@ -24,7 +24,12 @@ public class Solution {
         int left = getDepth(root.left);
         int right =getDepth(root.right);
         
-        if(left==-1 || right ==-1 || Math.abs(left-right)>1 ){//左子树或右子树或当前树不是balance tree都会返回-1
+        if(left==-1 || right ==-1 || Math.abs(left-right)>1 ){
+        
+        //左子树或右子树或当前树不是balance tree都会返回-1;
+        //要是少了left==-1 || right ==-1这一句的话，程序会一直计算下去，就算满足条件也不会停下来，
+        //一定要加这一句
+        
             return -1;
         }
         
