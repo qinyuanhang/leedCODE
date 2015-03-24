@@ -1,0 +1,66 @@
+Suppose a sorted array is rotated at some pivot unknown to you beforehand.
+
+(i.e., 0 1 2 4 5 6 7 might become 4 5 6 7 0 1 2).
+
+You are given a target value to search. If found in the array return its index, otherwise return -1.
+
+You may assume no duplicate exists in the array.
+   6
+ 5
+4
+      3   这样的形式，用二分法，用到3，来找出最小数的位置，然后比较target是比3大还是比三，再在两边选择一边来做二分法
+     2    
+    1  
+
+public class Solution {
+    public int search(int[] A, int target) {
+      int head = 0;
+      int end = A.length - 1;
+      int mid = head + (end - head) / 2;
+      int comp = A.length - 1;
+      
+      if(A.length == 1){
+          return A[0] == target ? 0 : -1;
+      }
+      
+      while(head + 1 < end){
+          if(A[mid] > A[comp]){
+              head = mid;
+          }else{
+              end = mid;
+          }
+          mid = head + (end - head) / 2; 
+      }
+      
+      int min = (A[head] > A[end] ? end : head);
+      
+      if(target <= A[comp]){
+          return binary(A, target, min, comp);
+      }
+      
+      return  binary(A, target, 0, min);
+  
+    }
+    
+    public int binary(int[] A, int target, int head, int end){
+        int mid = head + (end - head) / 2;
+        
+        while(head + 1 < end){
+            if(A[mid] <= target){
+                head = mid;
+            }else{
+                end = mid;
+            }
+            mid = head + (end - head) / 2;
+        }
+        
+        if(A[head] == target){
+            return head;
+        }else if(A[end] == target){
+            return end;
+        }
+            return -1;
+    }
+    
+    
+}
