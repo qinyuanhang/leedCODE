@@ -1,0 +1,37 @@
+很奇妙的想法，要多拿出来看几次：
+比较原来的数组，因为后面的数字都是一个接着一个放到前面的，所以一个i循环整个数组，从1开始，只要碰到i和i-1位置相同
+的数值就count+1，所以这个题可以用做多种变换，允许重复N次，
+
+
+Follow up for "Remove Duplicates":
+What if duplicates are allowed at most twice?
+
+For example,
+Given sorted array A = [1,1,1,2,2,3],
+
+Your function should return length = 5, and A is now [1,1,2,2,3].
+
+public class Solution {
+    public int removeDuplicates(int[] A) {
+        
+        if(A.length < 3) return A.length;
+        
+        int count = 1;
+        int res = 1;
+        
+        for(int i = 1; i < A.length; i++){
+         
+         if(A[i] == A[i - 1]){
+             count ++;
+         }else{
+             count = 1;
+         }
+         
+         if(count < 3){
+             A[res] = A[i];
+             res ++ ;
+         }
+        }
+        return res;
+    }
+}
