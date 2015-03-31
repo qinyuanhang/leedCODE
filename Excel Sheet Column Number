@@ -1,0 +1,29 @@
+Related to question Excel Sheet Column Title
+
+Given a column title as appear in an Excel sheet, return its corresponding column number.
+
+For example:
+
+    A -> 1
+    B -> 2
+    C -> 3
+    ...
+    Z -> 26
+    AA -> 27
+    AB -> 28 
+
+和算十进制一样，300是3*10的二次方，加0*10的一次方，最后一个数直接加
+
+
+
+public class Solution {
+    public int titleToNumber(String s) {
+        int l = s.length();  
+        int num = 0;
+        int start = 'A' - 1;
+          for(int i = 0; i < l - 1; i++){  
+            num += (s.charAt(i) - start) * Math.pow(26, l - i - 1);       
+            }  
+        return num + s.charAt(l - 1) - start;  
+    }
+}
