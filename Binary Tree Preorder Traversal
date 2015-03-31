@@ -1,0 +1,26 @@
+/**
+ * Definition for binary tree
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+ 
+ 这个用的是dc算法，先分成小部分在组合起来，
+ 
+ 
+public class Solution {
+    public List<Integer> preorderTraversal(TreeNode root) {
+        
+        List<Integer> result = new ArrayList<Integer>();//注意这个写法，当返回值是这种形式的时候。
+        
+        if(root == null) return result;
+        
+        result.add(root.val);
+        result.addAll(preorderTraversal(root.left));    
+        result.addAll(preorderTraversal(root.right));
+        return result;   
+    }
+}
