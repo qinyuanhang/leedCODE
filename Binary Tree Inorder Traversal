@@ -1,0 +1,23 @@
+/**
+ * Definition for binary tree
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    这个要放在外面，因为是全局变量，下面的方程是递归调用，会有问题  
+    List<Integer> list = new ArrayList<Integer>();
+    
+    public List<Integer> inorderTraversal(TreeNode root) {
+        //if(root == null) return list;
+        if(root != null){
+        inorderTraversal(root.left);
+        list.add(root.val);
+        inorderTraversal(root.right);
+        }
+        return list;
+    }
+}
