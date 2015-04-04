@@ -1,0 +1,45 @@
+Given a list, rotate the list to the right by k places, where k is non-negative.
+
+For example:
+Given 1->2->3->4->5->NULL and k = 2,
+return 4->5->1->2->3->NULL.
+
+求出list的长度，然后用k去求于，比如 1-2-3-4-5 k=7的话，那就是k = 2；
+就是把后面K个node连到头就可以。
+
+
+
+
+public class Solution {
+    public ListNode rotateRight(ListNode head, int k) {
+        
+        if(head == null || head.next == null) return head;
+       
+       
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        ListNode end = head;
+        ListNode res;
+      
+        
+        int length = 1;
+        while(end.next != null){
+            end = end.next;
+            length++;
+        }
+        
+        k = k % length;
+        
+        if(k == 0) return dummy.next;
+        
+        for(int i = 1; i < length - k; i++){
+            head = head.next;
+        }
+        res = head.next;
+        head.next = null;
+        end.next = dummy.next;
+        
+        return res;
+        
+    }
+}
