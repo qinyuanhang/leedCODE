@@ -1,0 +1,71 @@
+
+三步翻转
+
+45123 先找到最小的值和他的位置 45 | 123
+两边各自头尾调换  54 | 321
+再一次头尾翻转
+12345
+
+当最小值的位置在0的时候，就不用再变了 
+
+
+public class Solution {
+    /**
+     * @param nums: The rotated sorted array
+     * @return: The recovered sorted array
+     */
+    public void recoverRotatedSortedArray(ArrayList<Integer> nums) {
+        // write your code
+        if(nums.size() < 2) return;
+        
+        int temp = nums.get(0);
+        int minP = 0;
+        int start = 0;
+        int end = 0;
+        
+        for(int i = 0; i < nums.size(); i++){
+            if(nums.get(i) < temp){
+                temp = nums.get(i);
+                minP = i;
+            }
+        }   
+        
+        if(minP == 0) return;
+        
+        end = minP - 1;
+        
+        while(end > start){
+            temp = nums.get(end);
+            nums.set(end,nums.get(start));
+            nums.set(start,temp);
+            start  ++;
+            end --;
+        }
+        
+        end = nums.size() - 1;
+        start = minP;
+        
+        while(end > start){
+            temp = nums.get(end);
+            nums.set(end,nums.get(start));
+            nums.set(start,temp);
+            start  ++;
+            end --;
+        }
+        
+        
+        end = nums.size() - 1;
+        start = 0;
+        
+        while(end > start){
+            temp = nums.get(end);
+            nums.set(end,nums.get(start));
+            nums.set(start,temp);
+            start  ++;
+            end --;
+        }
+        
+        
+        
+    }
+}
