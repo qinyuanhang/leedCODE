@@ -1,0 +1,36 @@
+三步转没什么难度，但是
+“    a    b  ”这种有多个空格的，用。trim（）去掉首位的空格，用 s = s.replaceAll(" +"," ");转换中间连在一起多个空格
+成为一个空格，
+
+我试过就是用splite（“ ”）；来创建数组的话，每一个空格都会成为数组里的一个元素，这样还是没有办法去掉多余的空格；
+
+
+
+public class Solution {
+    
+    
+    public String reverseWords(String s) {
+        s = s.trim();
+        s = s.replaceAll(" +"," ");
+        
+        if(s == "" || s.length() == 1) return s;
+        
+        String [] ss = s.split(" ");
+        int start = 0;
+        int end = ss.length - 1;
+        String temp ="";
+        while(end > start){
+            temp = ss[start];
+            ss[start] = ss[end];
+            ss[end] = temp;
+            end --;
+            start ++;
+        }
+        String res = "";
+        for(String i : ss){
+            res += i + " ";
+        }
+        
+           return res.trim();
+    }
+}
