@@ -1,0 +1,68 @@
+
+找两个链表是否有相连接的点
+
+想法是，，构造一个环，找环开始的点
+
+有几个特殊的例子要考虑：
+
+关键是要在链表a的最后额外加上两个节点，（因为只有一个节点的话可能出现两个节点环，这样fast永远是通留在第一个。）第二个节点
+指向链表a的头，之后就执行找环，找第一个节点的程序就可以啦
+
+
+
+
+public class Solution {
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        
+        if(headA == null || headB == null) return null;
+        if(headA == headB) return headB;
+        if(headA.next == null && headB.next == null) return null;
+        
+        ListNode dummy = headA;
+        
+        while(dummy.next != null){
+            dummy = dummy.next;
+        }
+        
+        ListNode no1 = new ListNode(0);
+         ListNode no2 = new ListNode(0);
+         
+        dummy.next = no1;
+        no1.next = no2;
+        no2.next = headA;
+        
+        if(headB.next == null){
+          dummy.next = null;
+          no2.next = null;
+          return null;
+        } 
+        
+        
+        ListNode fast = headB;
+        ListNode slow = headB;
+        
+       
+        while(fast != null && fast.next != null){
+            fast = fast.next.next;
+            slow = slow.next;
+            if(fast == null || fast.next == null){
+              dummy.next = null;
+              no2.next = null;
+              return null;
+            } 
+            
+            if(fast == slow) break;
+        }
+        
+        fast = headB;
+        
+        while(fast != slow){
+            fast = fast.next;
+            slow = slow.next;
+        }
+        dummy.next = null;
+        no2.next = null;
+        return fast;
+        
+    }
+}
