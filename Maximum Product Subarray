@@ -1,0 +1,29 @@
+
+就是要同时保持最大和最小的两个数，让最大的来挑，是否乘到了负数，是否负数乘到了负数，还是是否要重新开一个subarray？
+
+public class Solution {
+    public int maxProduct(int[] A) {
+        if(A.length == 1) return A[0];
+        
+        int res = A[0];
+        int min = A[0];
+        int max = A[0];
+        
+        
+        for(int i = 1; i < A.length; i ++){
+            int a = A[i] * min;
+            int b = A[i] * max;
+            min = Math.min(Math.min(a,b), A[i]);
+            max = Math.max(Math.max(a,b), A[i]);这里就是判断是否要重新开一个subarray的地方，
+                                                最大和最小都是从三个数之中选：上一个最大乘以当前值，
+                                                          上一个最小乘以当前值，
+                                                          当前值；
+            res = Math.max(max, res);
+            
+        }
+        
+        return res;
+        
+        
+    }
+}
