@@ -1,0 +1,40 @@
+两个数组，一左一右重头开始算
+
+左数组从左边开始找，保持买的最佳时机
+右数组从右边开始找，保持卖得最佳时机
+
+然后两个数组在同一个位置，左边就是一次买卖，右边就是一次买卖，两个数组同位置的数字加起来最大值就是要求的数字
+
+【0】【1】【2】【3】【4】
+【0】【1】【2】【3】【4】
+
+
+
+public class Solution {
+    public int maxProfit(int[] prices) {
+        if(prices.length == 0) return 0;
+        
+        int [] left = new int [prices.length];
+        int [] right = new int [prices.length];
+        
+        int bestBuy = prices[0];
+        left[0] = 0; 
+        for(int i = 1; i < prices.length; i ++){
+            bestBuy = Math.min(bestBuy, prices[i]);
+            left[i] = Math.max(prices[i] - bestBuy,left[i - 1]);
+        }
+        
+        right[prices.length - 1] = 0;
+        int bestSell = prices[prices.length - 1];
+        for(int i = right.length - 2; i >= 0; i --){
+            bestSell = Math.max(prices[i], bestSell);
+            right[i] = Math.max(bestSell - prices[i], right[i + 1]);
+        }
+        
+        int max = 0;
+        for(int i = 0; i < prices.length; i ++){
+            max = Math.max(max, left[i] + right[i]);
+        }
+        return max;
+    }
+}
