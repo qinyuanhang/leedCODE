@@ -1,0 +1,21 @@
+从头往后走，用一个变量记录最好买进的价钱（最小值），用一个变量记录一个今天的价减去最好买进的价格（赚的钱），最后
+返回这个最大值就行
+
+
+public class Solution {
+    public int maxProfit(int[] prices) {
+        
+        if(prices.length == 0) return 0;
+        
+        int today = prices[0];
+        int bestBuy = today;
+        int max = 0;
+        
+        for(int i = 0; i < prices.length; i ++){
+            today = prices[i];
+            bestBuy = today < bestBuy ? today : bestBuy;
+            max = (today - bestBuy) > max ? (today - bestBuy) : max;
+        }
+        return max;
+    }
+}
