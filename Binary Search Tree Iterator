@@ -1,0 +1,30 @@
+
+很神奇的一道题，要多看看。那个next的方法的算法可以当做模板题来做
+
+public class BSTIterator {
+    private TreeNode cur;
+    private Stack<TreeNode> stack = new Stack<TreeNode>();
+    public BSTIterator(TreeNode root) {
+        cur = root;
+    }
+
+    /** @return whether we have a next smallest number */
+    public boolean hasNext() {
+        if(cur == null && stack.isEmpty()){
+            return false;
+        }
+        return true;
+    }
+
+    /** @return the next smallest number */
+    public int next() {
+        while(cur != null){
+            stack.push(cur);
+            cur = cur.left;
+        }
+            TreeNode res = stack.pop();
+            cur = res.right;
+            
+            return res.val;
+    }
+}
