@@ -1,0 +1,27 @@
+hashmap、table的运用，有键时，值不匹配，就是错；
+                      没有键但有值，是错；
+                      没建又没值，才键新的entry
+
+
+public class Solution {
+    public boolean isIsomorphic(String s, String t) {
+        if(s.length() != t.length()) return false;
+        
+        Map<Character,Character> map = new HashMap<Character,Character>();
+        for(int i = 0; i < s.length(); i ++){
+            if(map.containsKey(s.charAt(i))){
+                if(map.get(s.charAt(i)) != t.charAt(i)){
+                    return false;
+                }
+            }else if(map.containsValue(t.charAt(i))){
+                return false;
+            }
+            
+            else{
+                map.put(s.charAt(i),t.charAt(i));
+            }
+        }
+        
+        return true;
+    }
+}
