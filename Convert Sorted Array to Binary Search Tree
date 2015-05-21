@@ -1,0 +1,19 @@
+这个和之前呢过和construct binary tree 的类似， 就是把一个数组不断反两份，取中间那个为root，再递归调用，做出
+左右子树，最后返回root，
+
+public class Solution {
+    private TreeNode helper(int[] nums, int start, int end){
+        if(end < start) return null;//注意这里的条件，start可能比end要大，因为这里的调用end有一个减1，start有一个加1
+        int mid = (end - start) / 2 + start;
+        TreeNode root = new TreeNode(nums[mid]);
+        root.left = helper(nums, start, mid - 1);
+        root.right = helper(nums, mid + 1, end);
+        return root;
+    }
+    
+    public TreeNode sortedArrayToBST(int[] nums) {
+        if(nums.length == 0) return null;
+       
+        return helper(nums, 0 , nums.length - 1);
+    }
+}
