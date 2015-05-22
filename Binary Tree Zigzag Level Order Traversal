@@ -1,0 +1,38 @@
+
+和之前那个level order额题思路一样，只不过这个要两个stack来维护，还有一个boolean来决定从左到右push还是从右到左push
+
+
+public class Solution {
+    public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+        ArrayList res = new ArrayList ();
+        if(root == null) return res;
+        
+        Stack<TreeNode> curL = new Stack<TreeNode>();
+       
+       
+         boolean LToR = true;
+         
+         curL.push(root);
+         
+         while(!curL.isEmpty()){
+             Stack<TreeNode> nextL = new Stack<TreeNode>();
+             ArrayList<Integer> level = new ArrayList<Integer>();
+            
+             while(!curL.isEmpty()){
+                  TreeNode node = curL.pop();
+                  level.add(node.val);
+                 if(LToR){
+                     if(node.left != null) nextL.push(node.left);
+                     if(node.right != null) nextL.push(node.right);
+                 }else{
+                     if(node.right != null) nextL.push(node.right);
+                     if(node.left != null) nextL.push(node.left);
+                 }
+             }
+             curL = nextL;
+             res.add(level);
+             LToR = !LToR;
+         }
+        return res;
+    }
+}
