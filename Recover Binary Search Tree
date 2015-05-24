@@ -1,0 +1,30 @@
+public class Solution {
+弄3个全局变量，用中续遍历，pre和root是两个比较的点，一但pre得值比root得值大的话，pre和root一定有一个有问题，
+first是记录有问题的前一个点，second记录有问题的第二个点。
+    TreeNode pre = null, first = null, second = null;
+    
+    private void swap(TreeNode first, TreeNode second){
+        int temp = second.val;
+        second.val = first.val;
+        first.val = temp;
+    } 
+    
+    private void find(TreeNode root){
+        if(root == null) return;
+        find(root.left);
+        if(pre == null) pre = root;
+        
+        if(pre != null && pre.val > root.val){
+            if(first == null){
+                first = pre;//第一个有问题的点是pre，前一个
+            }
+                second = root;//第二个有问题的点是root，后一个
+        }
+        pre = root;
+        find(root.right);
+    }
+    public void recoverTree(TreeNode root) {
+        find(root);
+        swap(first,second);
+    }
+}
