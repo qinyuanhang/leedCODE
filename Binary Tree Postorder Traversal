@@ -1,0 +1,19 @@
+
+左右中，做自己的helper
+
+public class Solution {
+    
+    private List<Integer> helper(TreeNode root, List<Integer> res){
+        if(root == null) return res;
+         res = helper(root.left, res);
+        res = helper(root.right, res);
+        res.add(root.val);
+        return res;
+        
+    }
+    
+    ArrayList<Integer> res = new ArrayList<Integer>();
+    public List<Integer> postorderTraversal(TreeNode root) {
+      return helper(root,res);
+    }
+}
