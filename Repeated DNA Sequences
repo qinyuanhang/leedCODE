@@ -1,0 +1,39 @@
+public class Solution {
+    private int getSum(String s){//这里就是，到一个字母，就把sum弄出一个心新的数字，这样做的目的就是，到这个位子，这个
+    字母，sum是唯一的
+        int sum = 0;
+        for(int i = 0; i < s.length(); i++){
+            if(s.charAt(i) == 'A'){
+                sum = sum * 5; 
+            }else if(s.charAt(i) == 'C'){
+                sum = sum * 5 + 99;
+            }else if(s.charAt(i) == 'G'){
+                sum = sum * 5 + 77;
+            }else{
+                sum = sum * 5 + 123;
+            }
+        }
+        return sum;
+    }
+    
+    public List<String> findRepeatedDnaSequences(String s) {
+    //用hashset而不是用hashmap是因为我们要检测重复而不用存key和value，
+        HashSet <String> hashRes = new HashSet<String>();
+        HashSet<Integer> code= new HashSet<Integer>();
+        List<String> res = new ArrayList<String>();
+        for(int i = 9; i < s.length(); i ++){
+            String sub = s.substring(i - 9, i + 1);
+            int sum = getSum(sub);
+            if(code.contains(sum)){
+                hashRes.add(sub);//把一些重复的排除掉
+            }else{
+                code.add(sum);
+            }
+        }
+        
+        for(String t : hashRes){
+            res.add(t);
+        }
+        return res;
+    }
+}
