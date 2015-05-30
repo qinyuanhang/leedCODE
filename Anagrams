@@ -1,0 +1,38 @@
+两个单词，组成的字母相同只是顺序不同的话就是这个ANAGRAMS
+1: 把每个数组里面的string变成char的array，排序，
+2：用一个hashmap，要是这个map有了这个key，就在这个key的value上面加一个这个string
+3：要是没有这个key，就新加一个key value对，把排好序的string作为key，value是一个string类型的arraylist，把
+这个字符串加进去，
+最后扫一遍所有value的size。大于1的都加到最终答案案中。
+
+
+
+public class Solution {
+    public List<String> anagrams(String[] strs) {
+        ArrayList<String> res = new ArrayList<String>();
+       // if(strs.length == 0) return res;
+        
+        HashMap<String, ArrayList<String>> map = new HashMap<String, ArrayList<String>>();
+        
+        for(String s : strs){
+            char [] temp = s.toCharArray();
+            Arrays.sort(temp);
+            String temps = new String(temp);
+            
+            if(!map.containsKey(temps)){
+               ArrayList<String> list = new ArrayList<String>();
+               list.add(s);
+               map.put(temps, list);
+            }else{
+                map.get(temps).add(s);
+            }
+        }
+        
+        for(ArrayList<String> s : map.values()){
+            if(s.size() > 1){
+                res.addAll(s);
+            }
+        }
+        return res;
+    }
+}
