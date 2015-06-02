@@ -17,7 +17,7 @@ public class Solution {
         for(String s : strs){
             char [] temp = s.toCharArray();
             Arrays.sort(temp);
-            String temps = new String(temp);
+            String temps = new String(temp);//注意这里变成string的方式
             
             if(!map.containsKey(temps)){
                ArrayList<String> list = new ArrayList<String>();
@@ -28,7 +28,7 @@ public class Solution {
             }
         }
         
-        for(ArrayList<String> s : map.values()){
+        for(ArrayList<String> s : map.values()){//这里可以遍历value
             if(s.size() > 1){
                 res.addAll(s);
             }
