@@ -1,0 +1,51 @@
+左右上下右左下上顺序走一遍，走一个数字加一。一直到数字等于n*n+1（因为n*n是要放进去的，所以要等n*n+1）的时候就break，
+
+
+
+
+public class Solution {
+    public int[][] generateMatrix(int n) {
+        
+        int[][] res = new int[n][n]; 
+        int top = 0, bottom = n - 1, left = 0, right = n - 1,num = 1;
+        while(n > 0){
+            //left to right
+            int l = left;
+            while(l <= right){
+                res[top][l] = num;
+                num++;
+                l++;
+            }
+            top++;
+            if(num > n*n) break;
+            //top to down
+            int t = top;
+            while(t <= bottom){
+                res[t][right] = num;
+                num++;
+                t++;
+            }
+            right--;
+            if(num > n*n) break;
+            //right to left
+            int r = right;
+            while(left <= r){
+                res[bottom][r] = num;
+                num++;
+                r--;
+            }
+            bottom--;
+            if(num > n*n) break;
+         //down to top
+            int b = bottom;
+            while(top <= b){
+                res[b][left] = num;
+                num++;
+                b--;
+            }
+           left++;
+           if(num > n*n) break;
+        }
+        return res;
+    }
+}
