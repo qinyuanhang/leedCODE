@@ -1,0 +1,58 @@
+左边一遍右边一遍，取最小，最后相加
+
+public class Solution {
+    public int trap(int[] height) {
+        if(height.length < 2) return 0;
+        int[] res = new int[height.length];
+        int side = height[0];
+        boolean start = false;
+        
+        //res[0] = 0;
+        //res[res.length - 1] = 0;
+        
+        //from left to right 
+        for(int i = 1; i < height.length; i++){
+       
+            if(!start && height[i] < side){
+                start = true;
+                res[i] = side - height[i];
+            }else if(!start && height[i] >= side){
+                side = height[i];
+                res[i] = 0;
+            }else if(start && side > height[i]){
+                res[i] = side - height[i];
+            }else{
+                res[i] = 0;
+                side = height[i];
+                start = false;
+            }
+        }
+        
+         side = height[height.length - 1]; 
+         start = false;
+         
+         for(int i = height.length - 2; i >= 0 ; i--){
+       
+            if(!start && height[i] < side){
+                start = true;
+                res[i] = Math.min(side - height[i], res[i]);
+            }else if(!start && height[i] >= side){
+                res[i] = Math.min(0, res[i]);
+                side = height[i];
+            }else if(start && side > height[i]){
+                res[i] = Math.min(side - height[i], res[i]);
+            }else{
+                res[i] = Math.min(0, res[i]);
+                side = height[i];
+            }
+        }
+        res[0] = 0;
+        res[res.length - 1] = 0;
+        int answer = 0;
+        for(int s : res){
+            answer += s;
+        }
+        
+        return answer;
+    }
+}
