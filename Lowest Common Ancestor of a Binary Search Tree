@@ -21,7 +21,7 @@ public class Solution {
     }
 }
 
-//////这个是使用所有的二叉树的方法，如果是bst的话，会简单一点
+//////这个是使用所有的二叉树的方法，但是这个方法不适用于有重复的node的情况，更加好的方法再medium
 public class Solution {
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
         
