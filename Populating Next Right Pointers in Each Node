@@ -1,0 +1,27 @@
+上下两层一起走，当上面的走到头了就到下一层
+
+public class Solution {
+    public void connect(TreeLinkNode root) {
+        if(root == null) return;
+        
+        TreeLinkNode parent = root;
+        TreeLinkNode son = parent.left;
+        
+        while(son != null){
+            TreeLinkNode pre = null;
+            while(parent != null){
+                if(pre == null){
+                    pre= parent.left;
+                }else{
+                    pre.next = parent.left;
+                    pre = pre.next;
+                }
+                pre.next = parent.right;
+                pre = pre.next;
+                parent = parent.next;
+            }
+            parent = son;
+            son = parent.left;
+        }
+    }
+}

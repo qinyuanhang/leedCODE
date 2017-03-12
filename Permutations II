@@ -1,0 +1,31 @@
+和I是同样的思想，就是加了一个，在当前层用过的数字的下标，不再使用，以前所有用过的位置都不能再用
+
+public class Solution {
+    public List<List<Integer>> permuteUnique(int[] nums) {
+        List res = new ArrayList();
+        if(nums.length == 0 || nums == null) return res;
+        HashSet<Integer> usedPosition = new HashSet<Integer>();
+        ArrayList<Integer> list = new ArrayList<Integer>();
+        help(res, list, nums, usedPosition);
+        return res;
+    }
+    private void help(List res, ArrayList<Integer> list, int [] nums, HashSet<Integer> usedPosition){
+        if(list.size() == nums.length){
+            res.add(new ArrayList(list));
+            return;
+        }
+        HashSet<Integer> usedNum = new HashSet<Integer>();
+        
+        for(int i = 0; i < nums.length; i ++){
+            if(usedPosition.contains(i) || usedNum.contains(nums[i])) continue;
+            
+            list.add(nums[i]);
+            usedPosition.add(i);
+            usedNum.add(nums[i]);
+            HashSet<Integer> used = new HashSet<Integer>(usedPosition);//这样要弄一个新的，因为pass by refer
+            usedPosition.remove(i);要移除，因为再本层，这个位置的数字还是可以再给别的循环用的
+            help(res,list,nums,used);
+            list.remove(list.size() - 1);
+        }
+    }
+}

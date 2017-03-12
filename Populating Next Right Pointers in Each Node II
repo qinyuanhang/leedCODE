@@ -1,0 +1,39 @@
+
+和1差不多，只不过是加了先左判断再右判断
+public class Solution {
+    public void connect(TreeLinkNode root) {
+        if (root == null ) return;
+        TreeLinkNode parent = root;
+        TreeLinkNode son;
+        TreeLinkNode pre;
+        while(parent != null){
+            son = null;
+            pre = null;
+            while(parent != null){
+                if(son == null){
+                    son = parent.left == null ? parent.right : parent.left;
+                }
+                if(parent.left != null){
+                    if(pre == null){
+                        pre = parent.left;
+                    }else{
+                        pre.next = parent.left;
+                        pre = pre.next;
+                    }
+                }
+                if(parent.right != null){
+                    if(pre == null){
+                        pre = parent.right;
+                    }else{
+                        pre.next = parent.right;
+                        pre = pre.next;
+                    }
+                }
+                parent = parent.next;
+            }
+            parent = son;
+        }
+        
+        
+    }
+}
