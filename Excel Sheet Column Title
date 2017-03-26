@@ -1,0 +1,41 @@
+Given a positive integer, return its corresponding column title as appear in an Excel sheet.
+
+For example:
+
+    1 -> A
+    2 -> B
+    3 -> C
+    ...
+    26 -> Z
+    27 -> AA
+    28 -> AB 
+巧妙的时这里1是A，2是B。。。。。到了26是Z,但是字符的转换中，n对26求余数的话，得到0就是Z,和顺序不相符，所以这里要
+单独拿出来讲，
+还有一个地方是当n是26得倍数时，N--。因为如果是n=26，那么 n%26=0，但是n/26就等于1，最后的结果就是ZA，但是应该是Z。
+这个地方要特别注意。和10 进制有点小区别
+
+
+
+
+public class Solution {
+    public String convertToTitle(int n) {
+   
+        String str = "";  
+        while(n > 0){  
+            int r=n%26;  
+            n=n/26;  
+            if(r==0){   //为26的整数倍，该位设置为Z，n减掉1  
+                str+='Z';  
+                n--;  
+            }else{  
+                str+=(char)('A'+r-1);  
+            }  
+        }  
+        //反转  
+        String result = "";  
+        for(int i=str.length()-1;i>=0;i--){  
+            result+=str.charAt(i);  
+        }  
+        return result;  
+    }
+}

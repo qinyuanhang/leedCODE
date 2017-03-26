@@ -1,0 +1,48 @@
+public class Solution {
+    public String addBinary(String a, String b) {
+    
+    String res="";
+    char carry='0';
+    int aEnd=a.length()-1;
+    int bEnd=b.length()-1;
+    
+    while(aEnd>=0 && bEnd>=0){
+        res=addOne(a.charAt(aEnd),b.charAt(bEnd),carry)[0]+res;
+        carry=addOne(a.charAt(aEnd),b.charAt(bEnd),carry)[1];
+        aEnd--;
+        bEnd--;
+    }
+    //如果a和b一样长，那就看有没有进位，有的话要在前面加个1
+    if(aEnd==bEnd && carry=='1'){ return '1'+res;}
+    if(aEnd==bEnd && carry=='0'){ return res;}
+    //要是不一样长，就把剩下的哪一部份加1，进位就还用着
+    String l = a.length()>b.length()? a:b;
+    String s = a.length()<b.length()? a:b;
+    
+    int lEnd=l.length()-1-s.length();
+    
+    while(lEnd>=0){
+        res=addOne(l.charAt(lEnd),'0',carry)[0]+res;
+        carry=addOne(l.charAt(lEnd),'0',carry)[1];
+        lEnd--;
+    }
+    //注意这里，要是算完还有进位，那就说明要在前面加个1
+    if(carry=='1'){ return '1'+res;}
+   
+    return res;
+    }
+
+
+//自己写的方法，返回一个字符数组，第一个是答案，第二个是进位  
+    public char [] addOne(char a, char b,char c){
+        char [] ans = new char[2];
+        if(a==b){
+            ans[0]=c;
+            ans[1]=a;
+        }else{
+            ans[0]= (c=='1'? '0':'1');
+            ans[1]=c;
+        }
+        return ans;
+    }
+}
