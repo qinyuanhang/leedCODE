@@ -1,0 +1,28 @@
+/**
+ * Definition for binary tree
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public int sumNumbers(TreeNode root) {
+        
+       return sum(root,0);
+       
+       
+    }
+    
+    public int sum(TreeNode root, int sum){
+        
+        if(root == null) return 0;
+        
+        //一个递归，在这我要说的是这个要考虑三种情况，到达空节点，到达叶子节点和一般节点
+        //我就是之前没有考虑叶子节点所以才没通过
+        if(root.left==null && root.right==null) return sum*10+root.val;
+        return sum(root.left,sum*10+root.val)+sum(root.right,sum*10+root.val);
+    }
+    
+}

@@ -1,0 +1,44 @@
+一定有一个一样的二维数组，
+
+
+
+public class Solution {
+    public int uniquePathsWithObstacles(int[][] obstacleGrid) {
+        int m = obstacleGrid.length;
+        int n = obstacleGrid[0].length;
+        
+        int [][] res = new int [m][n];
+        
+        res[0][0] = obstacleGrid[0][0] == 1 ? 0 : 1; //这里要注意,匙第一个是1的话，那么就不用走了，直接回复0；
+        
+        //这里和I一样，先把第一行和第一列赋值，但是这里要注意，不管行列，一旦碰到1，那他后面就全是0，这里就可以
+        //用 后 = 前这样来赋值
+        for(int i = 1; i < m; i ++){
+            if(obstacleGrid[i][0] == 1){
+                res[i][0] = 0;
+            }else{
+                res[i][0] = res[i - 1][0];
+            }
+        }
+        
+        
+          for(int i = 1; i < n; i ++){
+            if(obstacleGrid[0][i] == 1){
+                res[0][i] = 0;
+            }else{
+                res[0][i] = res[0][i - 1];
+            }
+        }
+        //只要碰到1，那这个位置的res就是0
+        for(int i = 1; i < m; i++){
+            for(int j = 1; j < n; j++){
+                if(obstacleGrid[i][j] == 1){
+                    res[i][j] = 0;
+                }else{
+                    res[i][j] = res[i - 1][j] + res[i][j - 1];
+                }
+            }
+        }
+        return res[m - 1][n - 1];
+    }
+}

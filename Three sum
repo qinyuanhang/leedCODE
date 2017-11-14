@@ -1,0 +1,45 @@
+
+
+
+public class Solution {
+    public List<List<Integer>> threeSum(int[] nums) {
+     List res = new ArrayList(); 
+     if(nums == null) return res;
+     int length = nums.length;
+     
+     Arrays.sort(nums);
+     
+     for(int first = 0; first < length; first++){
+         if(first > 0 && nums[first] == nums[first - 1]) continue;
+         
+         int second = first + 1, third = length - 1;
+         
+         while(third > second){
+             int sum = nums[first] + nums[second] + nums[third];
+             if(sum == 0){
+                 ArrayList<Integer> temp = new ArrayList<Integer>();
+                 temp.add(nums[first]);
+                 temp.add(nums[second]);
+                 temp.add(nums[third]);
+                 res.add(temp);
+                   
+                   
+                   while(third > second && nums[third] == nums[third - 1]){
+                       third --;
+                   }
+                   third -- ;
+                    while(third > second && nums[second] == nums[second + 1]){
+                       second ++;
+                   }
+                   second ++;
+                   
+             }else if(sum < 0){
+                 second++;
+             }else{
+                 third -- ;
+             }
+         }
+     }
+       return res;
+    }
+}

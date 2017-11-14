@@ -1,0 +1,42 @@
+A peak element is an element that is greater than its neighbors.
+
+Given an input array where num[i] ≠ num[i+1], find a peak element and return its index.
+
+The array may contain multiple peaks, in that case return the index to any one of the peaks is fine.
+
+You may imagine that num[-1] = num[n] = -∞.
+
+For example, in array [1, 2, 3, 1], 3 is a peak element and your function should return the index number 2.
+
+用for循环其实可以做，但是要求要logN的话就用二分吧，
+分4种情况：
+左右都比中间小的，就是他了
+左右都比中间大的，两头随便一个换到中间
+左边大，右边小，上坡阶段
+右边大左边小，下坡阶段
+
+
+public class Solution {
+    public int findPeakElement(int[] num) {
+        
+        int l = num.length - 1;
+        int head = 0;
+        int mid = head + (l - head) / 2;
+        
+        while(head + 1 < l){
+            if(num[mid] > num[mid-1] && num[mid] > num[mid + 1]){
+                return mid;
+            }else if(num[mid] > num[mid - 1] && num[mid] < num[mid + 1]){
+                head = mid;
+            }else{
+                l = mid;
+            }
+            mid = head + (l - head) / 2;
+        }
+        
+        if(num[head] > num[l]){
+            return head;
+        }
+        return l;
+    }
+}

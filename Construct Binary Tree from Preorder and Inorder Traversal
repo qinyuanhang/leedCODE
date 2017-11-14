@@ -1,0 +1,30 @@
+给前序遍历和中序遍历，复原二叉树
+和之前的题一样，这里注意的是前序遍历的第一个是根节点
+
+public class Solution {
+    
+    private int findPosition(int [] inorder, int istart, int iend, int key){
+        int i = 0;
+        for(i = istart; i <= iend; i++){
+            if(inorder[i] == key){
+                return i;
+            }
+        }
+        return -1;
+    }
+    private TreeNode helper(int[] preorder, int pstart, int pend, int[] inorder, int istart, int iend){
+        if(istart > iend) return null;
+        TreeNode root = new TreeNode(preorder[pstart]);
+        int inPosition = findPosition(inorder, istart, iend, preorder[pstart]);
+        
+        root.left = helper(preorder, pstart + 1, pstart + inPosition - istart , inorder, istart, inPosition - 1);
+        root.right = helper(preorder, pstart + inPosition - istart + 1, pend , inorder, inPosition + 1, iend);
+        
+        return root;
+    }
+    
+    public TreeNode buildTree(int[] preorder, int[] inorder) {
+        //if(inorder.length != preorder.length) return null;
+        return helper(preorder, 0, preorder.length - 1, inorder, 0, inorder.length - 1);
+    }
+}

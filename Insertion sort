@@ -1,0 +1,26 @@
+Sort a linked list using insertion sort.
+双重循环，找到一个node，再找合适的位置插入，三个指针
+
+public class Solution {
+    public ListNode insertionSortList(ListNode head) {
+        if(head == null || head.next == null) return head;
+        
+        ListNode dummy = new ListNode(0);
+        ListNode cur = head;
+        ListNode next;
+        ListNode pre;
+        while(cur != null){
+               next = cur.next;
+               pre = dummy;
+            while(pre.next != null && cur.val > pre.next.val){
+                pre = pre.next;
+            }
+            cur.next = pre.next;
+            pre.next = cur;
+            cur = next;
+        }
+        
+        return dummy.next;
+        
+    }
+}

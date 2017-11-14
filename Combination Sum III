@@ -1,0 +1,29 @@
+public class Solution {
+    List res = new ArrayList();
+    public List<List<Integer>> combinationSum3(int k, int n) {
+        if(k < 1 || k > 9) return res;
+        ArrayList<Integer> path = new ArrayList<Integer>();
+        help(path, 1, k , n);
+        return res;
+    }
+    
+    private void help(ArrayList<Integer> path, int start, int k, int n){
+        if(path.size() > k || n < 0) return;
+        
+        if(n == 0 && path.size() == k){
+            res.add(new ArrayList<Integer>(path));
+            return;
+        }
+        
+        for(int i = start; i <= 9; i++){
+            path.add(i);
+            
+            help(path, i + 1, k, n - i);
+            
+            path.remove(path.size() - 1);
+        }
+        
+        
+    }
+    
+}

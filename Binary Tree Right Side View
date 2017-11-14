@@ -1,0 +1,22 @@
+用模板，Binary Tree Level Order Traversal，取每一层最后一个就可以
+
+
+public class Solution {
+    
+    public List<Integer> rightSideView(TreeNode root) {
+       ArrayList<Integer> res = new ArrayList<Integer>();
+       if(root == null) return res;
+       Queue<TreeNode> queue = new LinkedList<TreeNode>();
+       queue.offer(root);
+       while(!queue.isEmpty()){
+           int size = queue.size();
+           for(int i = 0; i < size; ++i){
+               TreeNode head = queue.poll();
+               if(head.left != null) queue.offer(head.left);
+               if(head.right != null) queue.offer(head.right);
+               if(i == size - 1) res.add(head.val);
+           }
+       }
+       return res;
+    }
+}

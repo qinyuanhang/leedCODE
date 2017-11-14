@@ -1,0 +1,56 @@
+顺时针哪一个二维矩阵的数字加到list里面；
+我的方法有点慢，就是维护上下左右四个指针，
+左到右一遍。上指针++
+check 上指针《=下指针
+上到下一遍，右指针--
+check 右指针》=左指针
+右到左一遍，下指针—-
+check 上指针《=下指针
+下到上一遍，左指针++
+check 右指针》=左指针
+
+比较麻烦，因为没加一行就要检查是否有超出matrix异常
+
+
+public class Solution {
+    public List<Integer> spiralOrder(int[][] matrix) {
+        ArrayList<Integer> res = new ArrayList<Integer>();
+        if(matrix == null || matrix.length == 0 || matrix[0].length == 0) return res;
+        int top = 0, bottom = matrix.length - 1, left = 0, right = matrix[0].length - 1;
+        while(top <= bottom || right >= left){
+          //left to right
+          int l = left;
+          while(l <= right){
+              res.add(matrix[top][l]);
+              l++;
+          }
+          top++;
+          //top to dowm
+          if(top > bottom) break;
+          int t = top;
+          while(t <= bottom){
+              res.add(matrix[t][right]);
+              t++;
+          }
+          right--;
+          if(left > right) break;
+          //right to left
+          int r = right;
+          while(r >= left){
+              res.add(matrix[bottom][r]);
+              r--;
+          }
+          bottom--;
+          if(top > bottom) break;
+          //down to top
+          int b = bottom;
+          while(b >= top){
+              res.add(matrix[b][left]);
+              b--;
+          }
+          left++;
+         if(left > right) break;    
+        }
+        return res;
+    }
+}

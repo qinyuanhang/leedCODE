@@ -1,0 +1,29 @@
+/**
+ * Definition for singly-linked list.
+ * class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) {
+ *         val = x;
+ *         next = null;
+ *     }
+ * }
+ */
+ 
+ 
+ 两个指针，一个走快一个走得慢，快的那个一走到null就说明没环，快的要是和慢的碰上了就说明有环
+public class Solution {
+    public boolean hasCycle(ListNode head) {
+        ListNode fast = head;
+        ListNode slow = head;
+        
+        while(true){
+            if(fast == null || fast.next == null) return false;
+            
+            fast = fast.next.next;
+            slow = slow.next;
+            
+            if(fast == slow) return true;
+        }
+    }
+}

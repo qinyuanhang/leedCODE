@@ -1,0 +1,64 @@
+
+Given a sorted array of integers, find the starting and ending position of a given target value.
+
+Your algorithm's runtime complexity must be in the order of O(log n).
+
+If the target is not found in the array, return [-1, -1].
+
+For example,
+Given [5, 7, 7, 8, 8, 10] and target value 8,
+return [3, 4].
+这个题用了两次二分法，lintcode的模板找出两头；
+
+
+public class Solution {
+    public int[] searchRange(int[] A, int target) {
+        int [] res = {0,0};
+        int [] wrong = {-1,-1};
+        
+        int head = 0;
+        int end = A.length-1;
+        int mid = head + (end - head) / 2;
+       
+        while(head + 1 < end){
+            
+            if(A[mid] == target || A[mid] > target){
+                end = mid;
+            }else{
+                head = mid;
+            }
+            mid = head + (end - head) / 2;
+        }
+        
+        if(A[head]  == target){
+            res[0] = head;
+        }else if(A[end]  == target){
+            res[0] = end;
+        }else{
+            return wrong;
+        }
+          head = 0;
+          end = A.length-1;
+          mid = head + (end - head) / 2;
+       
+        while(head + 1 < end ){
+            
+            if(A[mid] == target || A[mid] < target){
+                head = mid;
+            }else{
+                end = mid;
+            }
+            mid = head + (end - head) / 2;
+        }
+        
+        if(A[head]  == target){
+            res[1] = head;
+        }
+         if(A[end]  == target){
+            res[1] = end;
+        }
+        
+        
+        return res;
+    }
+}

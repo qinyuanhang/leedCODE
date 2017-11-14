@@ -1,0 +1,60 @@
+Reverse a linked list from position m to n. Do it in-place and in one-pass.
+
+For example:
+Given 1->2->3->4->5->NULL, m = 2 and n = 4,
+
+return 1->4->3->2->5->NULL.
+
+Note:
+Given m, n satisfy the following condition:
+1 ≤ m ≤ n ≤ length of list.
+
+加dummy node，让这个链表的位置从0 开始，
+找到要改变的第一个node和它前一个，
+找到要改变的最后一个node和它的后一个，
+然后就是简单的 pre，cur，next三个node的交替，把头连到尾巴那里
+
+
+public class Solution {
+    public ListNode reverseBetween(ListNode head, int m, int n) {
+        
+        if(head == null || head.next == null || m == n) return head;
+        
+        ListNode dummy = new ListNode(0);
+        ListNode end;
+        ListNode subEnd;
+        ListNode subHead;
+        
+        dummy.next = head;
+        head = dummy;
+        
+        
+        for(int i = 0; i < m - 1; i++){
+            head = head.next;
+        }
+        subHead = head.next;
+        
+        subEnd = dummy;
+        
+        for(int j = 0; j < n; j++){
+            subEnd = subEnd.next;
+        }
+        end = subEnd.next;
+        
+        ListNode pre = end;
+        ListNode cur = subHead;
+        ListNode nex = subHead.next;
+        
+        while(cur != subEnd){
+            cur.next = pre;
+            pre = cur;
+            cur = nex;
+            nex = cur.next;
+            cur.next = pre;
+        }
+        head.next = subEnd;
+        
+        
+        return dummy.next;
+    }
+}

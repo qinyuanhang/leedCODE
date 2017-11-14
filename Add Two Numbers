@@ -1,0 +1,78 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) {
+ *         val = x;
+ *         next = null;
+ *     }
+ * }
+ */
+ 
+ 
+public class Solution {
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        
+       // if(l1==null && l2==null) return l1;这句不判断也可以
+        if(l1==null && l2!=null) return l2;
+        if(l1!=null && l2==null) return l1;
+        
+        ListNode head = new ListNode(0);
+        ListNode res = head;
+        
+        int carry=0;//全局都可以用到的一个进位
+        
+        while(l1!=null && l2!=null){
+            if(l1.val+l2.val+carry>=10){//这里也要把进位算进去，因为仅为可以是0
+              
+                head.next=new ListNode((l1.val+l2.val+carry)%10);//超过十了之后取个位数，这里一定要加进位
+                carry=1;//进位变1
+               
+               
+            }else{
+                
+                 head.next=new ListNode(l1.val+l2.val+carry);
+                 carry=0;//记得把进位变回去
+                 
+            }
+            l1=l1.next;
+            l2=l2.next;
+            head=head.next;
+        }
+        
+        /**
+        一个完了另一个没完的情况，都要记得加进位，改进位
+        */
+        while(l2!=null){
+            
+            if(l2.val+carry==10){
+                head.next=new ListNode(0);
+                carry=1;
+            }else{
+                head.next=new ListNode(l2.val+carry);
+                carry=0;
+            }
+            head=head.next;
+            l2=l2.next;
+        }
+        
+         while(l1!=null){
+            
+            if(l1.val+carry==10){
+                head.next=new ListNode(0);
+                carry=1;
+            }else{
+                head.next=new ListNode(l1.val+carry);
+                carry=0;
+            }
+            head=head.next;
+            l1=l1.next;
+        }
+        
+        if(carry==1) head.next=new ListNode(1);//很关键，要是都加完了，但是还有进位，就说明要在最前面加一个1，1+9变10
+                                              //成两位数
+        
+        return res.next;
+    }
+}

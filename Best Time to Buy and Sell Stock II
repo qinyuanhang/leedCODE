@@ -1,0 +1,20 @@
+从头走一遍，下一个比当天小，就直接到下一天，下一个比当天大，加上差值，到下一天。
+
+
+public class Solution {
+    public int maxProfit(int[] prices) {
+        
+        if(prices.length == 0) return 0;
+        
+        int today = prices[0];
+        int bestBuy = today;
+        int max = 0;
+        
+        for(int i = 0; i < prices.length; i ++){
+            today = prices[i];
+            bestBuy = today < bestBuy ? today : bestBuy;
+            max = (today - bestBuy) > max ? (today - bestBuy) : max;
+        }
+        return max;
+    }
+}

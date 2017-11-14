@@ -1,0 +1,31 @@
+Given an array of integers, every element appears three times except for one. Find that single one.
+
+Note:
+Your algorithm should have a linear runtime complexity. Could you implement it without using extra memory?
+
+只有这几种情况
+
+【1】直接判断长度，返回
+【1，2，2，2，3，3，3】第一个个第2个不同就直接返回
+【1，1，1，2，3，3，3】3个3个比较，只要第一个和第三个不同就一定是第一个
+【1，1，1，2，2，2，3】3个3个比较到头还是找不到，那就是最后一个
+
+
+
+
+public class Solution {
+    public int singleNumber(int[] A) {
+        
+        if(A.length == 1) return A[0];
+        
+        Arrays.sort(A);
+        
+        if(A[0] != A[1]) return A[0];
+        
+       for(int i = 2; i < A.length; i += 3){
+           if(A[i] != A[i - 2]) return A[i - 2];
+       }
+       
+       return A[A.length - 1];
+    }
+}

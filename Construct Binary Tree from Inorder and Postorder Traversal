@@ -1,0 +1,33 @@
+给中序遍历和后续遍历，复原二叉树，
+
+后续的最后一个是根节点，再中序遍历中找到这个根节点，就能把中序遍历分成两部分，左边是左子树，右边是右子树，
+重复这个步骤。
+
+public class Solution {
+    private int findPosition(int[] inorder, int istart, int iend, int key){
+        int i = 0;
+        for(i = istart; i <= iend; i ++){
+        //这里要注意，是可以等于最后一个数字的
+            if(inorder[i] == key){
+                return i;
+            }
+        }
+        return -1;
+    }
+    
+    private TreeNode helper(int[] inorder, int istart, int iend, int[] postorder, int pstart, int pend){
+        //注意这个边界条件，是在中序遍历中，前面的不能比后面的大
+        if(istart > iend) return null;
+        TreeNode root = new TreeNode(postorder[pend]);
+        //每一个棵树的最右边这个就是根节点。
+        int position = findPosition(inorder, istart, iend, postorder[pend]);
+        //注意这里的左子树和右子树的开头结尾的计算
+        root.left = helper(inorder, istart, position - 1, postorder, pstart, pstart + position - istart - 1);
+        root.right = helper(inorder, position + 1, iend, postorder, pstart + position - istart, pend - 1);
+        return root;
+        
+    }
+    public TreeNode buildTree(int[] inorder, int[] postorder) {
+        return helper(inorder,0,inorder.length - 1, postorder, 0, postorder.length - 1);
+    }
+}

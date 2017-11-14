@@ -1,0 +1,26 @@
+public class Solution {
+    public int minimumTotal(List<List<Integer>> triangle) {
+        if(triangle.size() == 0)  
+        return 0;  
+    int[] res = new int[triangle.size()];  
+    for(int i=0;i<triangle.size();i++)  
+    {  
+        res[i] = triangle.get(triangle.size()-1).get(i);  
+    }  
+    for(int i=triangle.size()-2;i>=0;i--)  
+    {  
+        for(int j=0;j<=i;j++)  
+        {  
+            res[j] = Math.min(res[j],res[j+1])+triangle.get(i).get(j);   
+        }  
+    }  
+    return res[0];  
+        
+    }
+}
+一般想法是从上到下的动态规划，
+这里的加试题就是要求：
+三角的高度是8
+就只要一个8个格外空间，
+这个代码就是，上面这个是从下往上，先把最下面一层的存到一个数组，然后两两相比，选小的那个和上层同位置的相加
+

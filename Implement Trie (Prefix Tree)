@@ -1,0 +1,71 @@
+
+ROOT不能动。要用一个head来代替，
+
+class TrieNode {
+    // Initialize your data structure here.
+    char c ;
+    boolean isLeaf;
+    HashMap<Character, TrieNode> children = new HashMap<Character, TrieNode>();
+    public TrieNode(){}
+    public TrieNode(char c) {
+        this.c = c;
+    }
+}
+
+public class Trie {
+    private TrieNode root;
+
+    public Trie() {
+        root = new TrieNode();
+    }
+
+    // Inserts a word into the trie.
+    public void insert(String word) {
+       TrieNode head = root; 
+        for(int i = 0; i < word.length(); i++ ){
+            char c = word.charAt(i);
+            if( !head.children.containsKey(c) ){
+                head.children.put(c, new TrieNode(c));
+            }
+            head = head.children.get(c);
+            if(i == word.length() - 1){
+                head.isLeaf = true;
+            }
+        }
+    }
+
+    // Returns if the word is in the trie.
+    public boolean search(String word) {
+        TrieNode t = searchWord(word);
+ 
+        if(t != null && t.isLeaf) 
+            return true;
+        else
+            return false;
+    }
+
+    private TrieNode searchWord(String word){
+       // TrieNode res = root;
+        TrieNode head = root;
+        for(int i = 0; i < word.length(); i++){
+            char c = word.charAt(i);
+            if(!head.children.containsKey(c)){
+                return null;//这里很tricky！！！因为startswith这个方法不需要走到最后一个leaf节点，只要这里return null就可以知道到此为止都是合法的
+            }else{
+                head = head.children.get(c);
+            }
+        }
+        return head;
+    }
+    // Returns if there is any word in the trie
+    // that starts with the given prefix.
+    public boolean startsWith(String prefix) {
+        TrieNode res = searchWord(prefix);
+        return (res != null);
+    }
+}
+
+// Your Trie object will be instantiated and called as such:
+// Trie trie = new Trie();
+// trie.insert("somestring");
+// trie.search("key");
